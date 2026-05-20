@@ -29,5 +29,5 @@ jobs:
 
       - name: Esegui lo Script
         env:
-          TELEGRAM_TOKEN: ${{ secrets::TELEGRAM_TOKEN }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
         run: python AS_best_low.py
