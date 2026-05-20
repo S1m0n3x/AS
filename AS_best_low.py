@@ -64,7 +64,7 @@ WAIT_MINUTES_BETWEEN_LOOPS = 5
 
 # Versione major di Chrome installata (es. 147).
 # Se None, il bot prova auto-detect/retry dinamico in base all'errore di avvio.
-CHROME_VERSION = 147
+CHROME_VERSION = None
 
 # True = usa proxy gratuiti per ruotare IP ad ogni avvio (lento, raramente utile con betmonitor)
 # False = usa solo stealth mode (consigliato)
