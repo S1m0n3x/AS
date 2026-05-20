@@ -235,12 +235,16 @@ class SmartBot:
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--headless") # Forza il cloud a non cercare una finestra
+        chrome_options.add_argument("--remote-debugging-port=9222")
+        chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--blink-settings=imagesEnabled=false")
         chrome_options.add_argument("--log-level=3")
         chrome_options.add_argument("--silent")
         chrome_options.add_argument("--disable-usb-keyboard-detect")
         chrome_options.add_argument("--disable-features=ServiceWorkerPaymentApps")
         chrome_options.set_capability("pageLoadStrategy", "eager")
+        
 
         # 🔀 User-Agent casuale
         user_agent = random.choice(USER_AGENTS)
