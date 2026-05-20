@@ -27,12 +27,12 @@ import undetected_chromedriver as uc
 # ⚙️ CONFIGURAZIONE UTENTE
 # ==========================================
 
-TELEGRAM_TOKEN = "8318084474:AAEoVRTPKJ31Bcq8zgUtuykbBj70PL8Ddug"
-TELEGRAM_CHAT_ID = "168349527"
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+TELEGRAM_CHAT_ID = "168349527" 
 
 # Debug: salva HTML widget per analisi (utile se parsing fallisce)
 DEBUG_SAVE_HTML = False  # Imposta True per salvare HTML dei widget
-DEBUG_FOLDER = r"C:\Users\simon\OneDrive\Desktop\Programms\WM\DEBUG"
+DEBUG_FOLDER = os.path.join(os.getcwd(), "DEBUG")
 
 LEAGUES_TO_MONITOR = [
     "https://www.betmonitor.com/odds-comparison/football/england-premier-league/10000070",
@@ -55,7 +55,7 @@ LEAGUES_TO_MONITOR = [
     #"https://www.betmonitor.com/odds-comparison/football/friendly-internationals/10000404"
 ]
 
-OUTPUT_FOLDER = r"C:\Users\simon\OneDrive\Desktop\Programms\WM\DATI CARTELLI"
+OUTPUT_FOLDER = os.path.join(os.getcwd(), "DATI_CARTELLI")
 WAIT_MINUTES_BETWEEN_LOOPS = 5
 
 # ==========================================
@@ -2351,10 +2351,9 @@ class SmartBot:
 
 if __name__ == "__main__":
     bot = SmartBot()
-    while True:
-        try:
-            bot.run_cycle()
-            print(f"Prossimo giro tra {WAIT_MINUTES_BETWEEN_LOOPS} minuti.")
-            time.sleep(WAIT_MINUTES_BETWEEN_LOOPS * 60)
-        except KeyboardInterrupt: print("\n🛑 Stop."); bot.close_driver(); break
-        except Exception as e: print(f"❌ Errore loop: {e}"); time.sleep(60)
+    try:
+        bot.run_cycle()
+    except Exception as e:
+        print(f"❌ Errore loop: {e}")
+    finally:
+        bot.close_driver()
