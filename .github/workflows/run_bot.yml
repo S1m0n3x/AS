@@ -5,6 +5,10 @@ on:
     - cron: '*/20 * * * *'
   workflow_dispatch:
 
+env:
+  # Ottimizza l'esecuzione per i server GitHub a metà 2026
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
@@ -26,8 +30,12 @@ jobs:
         run: |
           pip install pandas numpy beautifulsoup4 selenium webdriver-manager requests undetected-chromedriver
 
+      - name: Pulisci residui cache Chromedriver (Previene Errore 100)
+        run: |
+          rm -rf ~/.local/share/undetected_chromedriver
+          rm -rf ~/.wdm
+
       - name: Esegui lo Script sotto schermo virtuale
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-        # xvfb-run simula la presenza di un monitor a cui Chrome può agganciarsi
         run: xvfb-run --server-args="-screen 0 1920x1080x24" python AS_best_low.py
